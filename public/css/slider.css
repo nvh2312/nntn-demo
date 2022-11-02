@@ -1,0 +1,60 @@
+
+.slider{
+	background-color: #dfdfdf;
+	padding-top: 10px;
+}
+.slider img {
+	width: 100%;
+	height: 100%;
+}
+
+
+.show-image {
+	height: 85%;
+	position: relative;
+}
+
+.control {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 80px;
+	color: white;
+	cursor: pointer;
+}
+
+.prev {
+	left: -10px;
+}
+
+.next {
+	right: -10px;
+}
+
+.img-wrap {
+	width: 666px;
+	height: 372px;
+}
+
+
+.list-img div {
+	cursor: pointer;
+	padding: 5px;
+	background-color: white;
+	flex: 1;
+}
+
+.list-img{
+	height: 372px;
+	overflow-y: scroll;
+	border-bottom: 1px solid black;
+}
+.list-img::-webkit-scrollbar{
+	width: 1px;
+	background: lightgray;
+}
+
+.list-img div.active {
+	
+	background-color: #999;
+}

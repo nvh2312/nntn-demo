@@ -1,0 +1,40 @@
+<% layout('base') -%>
+    <div class="all-content py-2">
+        <div class="margin-x">
+            <div class="py-2 bg-light">
+                <h1 class="mb-2 text-dark text-center">New blog post</h1>
+
+                <form id="add" enctype="multipart/form-data">
+                    <div class="form-group my-3">
+
+                        <label for="title" class="px-2 text-dark">Title</label>
+                        <input type="text" id="title" class="form-control" placeholder="Title" name="title" required>
+                    </div>
+                    <div class="form-group my-3">
+
+                        <label for="category-blog" class="px-2 text-dark">Category</label>
+                        <select class="form-control" id="category" name="category_blog" required>
+                            <option selected disabled hidden></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group my-3">
+
+                        <label for="description" class="px-2 text-dark">Description</label>
+                        <textarea name="description"id="description"placeholder="Description" class="form-control"
+                            rows="30"></textarea>
+                    </div>
+                    <div class="my-2 form-group">
+                        <label for="image" class="px-2 text-dark">Upload image</label>
+                        <input type="file" name="image" id="image" class="form-control-file text-dark">
+                    </div>
+
+                    <div class="form-group my-3">
+                        <a href="/" class="btn btn-warning">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/getCategories.js"></script>
