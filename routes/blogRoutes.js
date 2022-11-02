@@ -4,7 +4,7 @@ const blogController = require("./../controllers/blogController");
 
 // const authController = require("./../controllers/authController");
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router
   .route("/top-5-similar")

@@ -1,0 +1,73 @@
+<% layout('base') -%>
+    <div class="d-flex py-5" style="background: #dfdfdf;">
+        <div class="col-4"></div>
+        <div class="col-4 bg-white" style="border-radius: 8px;">
+            <div class="head-login pt-4 pb-2" style="border-bottom: 1px solid #ccc9c9">
+                <div class="d-flex px-4">
+                    <div class="col-2">
+                        <img src="/images/v-logo.png" alt="" width="77px" height="76px">
+                    </div>
+                    <div class="col-10">
+                        <h3 style="padding:20px 30px">ĐĂNG KÝ TÀI KHOẢN</h3>
+                    </div>
+                </div>
+            </div>
+            <div style="padding:20px 20px 10px 20px;border-bottom:1px solid #ccc9c9;">
+                <div class="mb-3 star">
+                    <label for="username">Tài khoản</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-user"></i></div>
+                        </div>
+                        <input type="text" class="form-control" id="username" name="username"
+                            style="padding: 0 0 0 10px;">
+                    </div>
+
+                </div>
+                <div class="mb-3 star">
+                    <label for="password">Mật khẩu</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-unlock-alt"></i></div>
+                        </div>
+                        <input type="text" name="password" class="form-control" id="password"
+                            style="padding: 0 0 0 10px;">
+                    </div>
+                </div>
+
+            </div>
+            <div class="submit-check" style="padding:20px 20px 10px 20px;font-size:13px">
+                <span><a style="float: right;" href="/login">Đã có tài khoản</a></span>
+            </div>
+            <div class="btn-submit" style="padding: 10px 20px 30px 20px;">
+                <button id="signup" type="button" class="btn btn-primary">
+                    Đăng ký
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $("#signup").on("click", async () => {
+            const username = $('#username').val();
+            const password = $('#password').val();
+            if (!username || !password) {
+                return false;
+            }
+            const data = {
+                username,
+                password
+            }
+            try {
+                await axios({
+                    method: "POST",
+                    url: "/api/v1/users/signup",
+                    data,
+                });
+                location.replace('/');
+            } catch (error) {
+                console.log(err);
+            }
+        });
+
+    </script>

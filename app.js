@@ -10,7 +10,7 @@ const extend = require("ejs-mate");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
-// const userRouter = require('./routes/userRoutes');
+const userRouter = require('./routes/userRoutes');
 const blogRouter = require("./routes/blogRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
 const organizationRouter = require("./routes/organizationRoutes");
@@ -53,7 +53,7 @@ app.use(mongoSanitize());
 app.use(express.static(`${__dirname}/public`));
 
 // 3) ROUTES
-// app.use('/api/v1/users', userRouter);
+app.use('/api/v1/users', userRouter);
 app.use("/api/v1/blogs", blogRouter);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/organizations", organizationRouter);

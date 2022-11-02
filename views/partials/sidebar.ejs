@@ -3,6 +3,9 @@
     <i class="fas fa-times"></i>
   </div>
   <div class="menu">
+    <% if(typeof user !="undefined" && user.role == "lecture"){ %>
+    <div class="item"><a href="/Blogs/Add">ADD BLOG</a></div>
+    <% } %>
     <div class="item"><a href="#">HOME</a></div>
     <div class="item">
       <a class="sub-btn">GIỚI THIỆU<i class="fas fa-angle-right dropdown"></i></a>

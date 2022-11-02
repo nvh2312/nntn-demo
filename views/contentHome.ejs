@@ -10,83 +10,37 @@
           </div>
           <div class="blog-in d-flex" style="margin-right: 12px;">
             <div class="col-6 bgr-blog">
-              <a href="">
+              <a href="/Blogs/<%= blog.blogs[0].slug %>">
                 <div class="mx-2">
                   <div class="img-active py-2">
-                    <img
-                      src="https://viennntn.vinhuni.edu.vn/data/31/upload/480/images//2022/10/z3791337020054_84e0e4b1d076a80c4f6ea87a3cab6bdd.jpg?width=281&height=190&mode=crop&anchor=middlecenter&scale=both"
-                      alt="" width="100%">
+                    <img src="/uploads/images/<%= blog.blogs[0].image %>" alt="" width="100%">
                   </div>
                   <div class="title-active py-2">
-                    <span style="font-size:17px;">Trao học bổng “Hạt giống tài năng” và tư vấn hướng nghiệp cho sinh
-                      viên ngành Chăn nuôi – Thú y,
-                      Nuôi trồng thủy sản</span>
+                    <span style="font-size:17px;">
+                      <%= blog.blogs[0].title %>
+                    </span>
                   </div>
                 </div>
               </a>
             </div>
             <div class="col-6 bgr-blog nactive">
               <div class="mx-2">
-                <a href="">
-                  <div class="d-flex py-2">
-                    <div class="col-5">
-                      <img
-                        src="https://viennntn.vinhuni.edu.vn/data/31/upload/480/images//2022/02/logo.png?width=131&height=87&mode=crop&anchor=middlecenter&scale=both"
-                        alt="">
-                    </div>
-                    <div class="col-7">
-                      <div class="text-nactive">
-                        <span>Kỷ niệm 77 năm ngày truyền thống ngành Quản lý đất đai Việt Nam (03/10/1945 -
-                          03/10/2022)</span>
+                <% for(let i=1; i<blog.blogs.length; i++) {%>
+                  <a href="/Blogs/<%= blog.blogs[i].slug %>">
+                    <div class="d-flex py-2">
+                      <div class="col-5">
+                        <img src="/uploads/images/<%= blog.blogs[i].image %>" alt="">
+                      </div>
+                      <div class="col-7">
+                        <div class="text-nactive">
+                          <span>
+                            <%= blog.blogs[i].title %>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </a>
-                <a href="">
-                  <div class="d-flex py-2">
-                    <div class="col-5">
-                      <img
-                        src="https://viennntn.vinhuni.edu.vn/data/31/upload/480/images//2022/02/logo.png?width=131&height=87&mode=crop&anchor=middlecenter&scale=both"
-                        alt="">
-                    </div>
-                    <div class="col-7">
-                      <div class="text-nactive">
-                        <span>Kỷ niệm 77 năm ngày truyền thống ngành Quản lý đất đai Việt Nam (03/10/1945 -
-                          03/10/2022)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-                <a href="">
-                  <div class="d-flex py-2">
-                    <div class="col-5">
-                      <img
-                        src="https://viennntn.vinhuni.edu.vn/data/31/upload/480/images//2022/02/logo.png?width=131&height=87&mode=crop&anchor=middlecenter&scale=both"
-                        alt="">
-                    </div>
-                    <div class="col-7">
-                      <div class="text-nactive">
-                        <span>Kỷ niệm 77 năm ngày truyền thống ngành Quản lý đất đai Việt Nam (03/10/1945 -
-                          03/10/2022)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-                <a href="">
-                  <div class="d-flex py-2">
-                    <div class="col-5">
-                      <img
-                        src="https://viennntn.vinhuni.edu.vn/data/31/upload/480/images//2022/02/logo.png?width=131&height=87&mode=crop&anchor=middlecenter&scale=both"
-                        alt="">
-                    </div>
-                    <div class="col-7">
-                      <div class="text-nactive">
-                        <span>Kỷ niệm 77 năm ngày truyền thống ngành Quản lý đất đai Việt Nam (03/10/1945 -
-                          03/10/2022)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
+                  </a>
+                  <% } %>
               </div>
             </div>
           </div>

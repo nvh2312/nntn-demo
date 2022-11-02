@@ -654,3 +654,9 @@ hr {
   border-bottom-style: dotted;
 
 }
+
+.star>label:after {
+  color: #f56c6c;
+  content: " *";
+  margin-left: 3px;
+}

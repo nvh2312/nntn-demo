@@ -24,12 +24,17 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
+categorySchema.virtual('blogs', {
+  ref: 'Blog',
+  foreignField: 'category',
+  localField: '_id'
+});
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 categorySchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
-const Category = mongoose.model("Category", categorySchema);
 
+const Category = mongoose.model("Category", categorySchema);
 module.exports = Category;
