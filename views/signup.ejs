@@ -46,28 +46,3 @@
             </div>
         </div>
     </div>
-    <script>
-
-        $("#signup").on("click", async () => {
-            const username = $('#username').val();
-            const password = $('#password').val();
-            if (!username || !password) {
-                return false;
-            }
-            const data = {
-                username,
-                password
-            }
-            try {
-                await axios({
-                    method: "POST",
-                    url: "/api/v1/users/signup",
-                    data,
-                });
-                location.replace('/');
-            } catch (error) {
-                console.log(err);
-            }
-        });
-
-    </script>

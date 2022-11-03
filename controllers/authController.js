@@ -11,7 +11,6 @@ const signToken = id => {
 };
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
-
   res.cookie("jwt", token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
@@ -41,14 +40,12 @@ exports.signup = catchAsync(async (req, res, next) => {
 });
 exports.login = catchAsync(async (req, res, next) => {
   const { username, password } = req.body;
-
   // 1) Check if email and password exist
   if (!username || !password) {
     return next(new AppError("Please provide username and password!", 400));
   }
   // 2) Check if user exists && password is correct
   const user = await User.findOne({ username }).select("+password");
-
   if (!user || password != user.password) {
     return next(new AppError("Incorrect email or password", 401));
   }
@@ -128,7 +125,6 @@ exports.isLoggedIn = async (req, res, next) => {
         return next();
       }
       // THERE IS A LOGGED IN USER
-      console.log(currentUser);
       res.locals.user = currentUser;
       return next();
     } catch (err) {

@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const cookieParser = require("cookie-parser");
 const extend = require("ejs-mate");
+const cors = require('cors');
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -26,6 +27,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 
 // 1) GLOBAL MIDDLEWARES
+// Implement CORS
+app.use(cors());
+
+
+app.options('*', cors());
+
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
+app.use('/js', express.static(__dirname + '/node_modules/tinymce/'));
 // Set security HTTP headers
 app.use(helmet());
 
@@ -49,8 +60,7 @@ app.use(cookieParser());
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
-// Serving static files
-app.use(express.static(`${__dirname}/public`));
+
 
 // 3) ROUTES
 app.use('/api/v1/users', userRouter);
