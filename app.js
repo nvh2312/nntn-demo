@@ -38,7 +38,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
 app.use('/js', express.static(__dirname + '/node_modules/tinymce/'));
 // Set security HTTP headers
-app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+      defaultSrc: ["'self'"],
+      scriptSrcElem: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", '*.vien-nntn.herokuapp.com']
+  }
+}));
 
 // Development logging
 if (process.env.NODE_ENV === "development") {

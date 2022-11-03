@@ -26228,7 +26228,37 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 window.$ = window.jQuery = _jquery.default;
 tinymce.init({
-  selector: 'textarea'
+  selector: "textarea",
+  theme: "silver",
+  paste_data_images: true,
+  plugins: ["advlist", "searchreplace", "insertdatetime", "emoticons", "image"],
+  toolbar1: "undo redo | bold italic | alignleft aligncenter alignright alignjustify |outdent indent |image",
+  toolbar2: "print | forecolor backcolor emoticons",
+  images_upload_credentials: true,
+  /* enable automatic uploads of images represented by blob or data URIs*/
+  automatic_uploads: true,
+  file_picker_callback: function file_picker_callback(callback, value, meta) {
+    if (meta.filetype == 'image') {
+      $('#upload').trigger('click');
+      $('#upload').on('change', function () {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          callback(e.target.result, {
+            alt: ''
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  },
+  templates: [{
+    title: 'Test template 1',
+    content: 'Test 1'
+  }, {
+    title: 'Test template 2',
+    content: 'Test 2'
+  }]
 });
 
 // When the user scrolls down 20px from the top of the document, show the button
@@ -26399,7 +26429,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61882" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52745" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

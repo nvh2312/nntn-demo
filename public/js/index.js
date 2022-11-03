@@ -15,7 +15,43 @@ import { scrollToTop, changeVideo, scrollFunction } from "./doSomeThing";
 window.$ = window.jQuery = jQuery;
 
 tinymce.init({
-  selector: 'textarea',
+  selector: "textarea",
+  theme: "silver",
+  paste_data_images: true,
+  plugins: [
+    "advlist",
+    "searchreplace",
+    "insertdatetime",
+    "emoticons",
+    "image"
+  ],
+  toolbar1: "undo redo | bold italic | alignleft aligncenter alignright alignjustify |outdent indent |image",
+  toolbar2: "print | forecolor backcolor emoticons",
+  images_upload_credentials: true,
+  /* enable automatic uploads of images represented by blob or data URIs*/
+  automatic_uploads: true,
+  file_picker_callback: function(callback, value, meta) {
+    if (meta.filetype == 'image') {
+      $('#upload').trigger('click');
+      $('#upload').on('change', function() {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          callback(e.target.result, {
+            alt: ''
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  },
+  templates: [{
+    title: 'Test template 1',
+    content: 'Test 1'
+  }, {
+    title: 'Test template 2',
+    content: 'Test 2'
+  }]
 });
 
 // When the user scrolls down 20px from the top of the document, show the button
