@@ -668,12 +668,12 @@ hr {
   transform: translateX(-50%);
   z-index: 9999;
   color: #fff;
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   font-weight: 400;
   text-align: center;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding: 1.6rem 15rem;
+  padding: 10px!important;
   -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
 }
