@@ -12,10 +12,10 @@ router.get("/", authController.isLoggedIn, async function (req, res, next) {
   });
   res.render("home", { blog });
 });
-router.get("/Blogs/Add", async function (req, res, next) {
+router.get("/Blogs/Add", authController.isLoggedIn, async function (req, res, next) {
   res.render("addBlog");
 });
-router.get("/Blogs/:slug", async function (req, res, next) {
+router.get("/Blogs/:slug", authController.isLoggedIn, async function (req, res, next) {
   const blog = await Blog.findOne({ slug: req.params.slug });
   res.render("showBlog", { blog });
 });
