@@ -26021,22 +26021,38 @@ var getCategories = /*#__PURE__*/function () {
 exports.getCategories = getCategories;
 var addBlog = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(data) {
+    var res;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            _context5.next = 2;
+            _context5.prev = 0;
+            _context5.next = 3;
             return (0, _axios.default)({
               method: "POST",
               url: "/api/v1/blogs",
               data: data
             });
-          case 2:
+          case 3:
+            res = _context5.sent;
+            if (res.data.status === "success") {
+              (0, _alerts.showAlert)("success", "Added Blog successfully!");
+              window.setTimeout(function () {
+                location.reload(true);
+              }, 1500);
+            }
+            _context5.next = 10;
+            break;
+          case 7:
+            _context5.prev = 7;
+            _context5.t0 = _context5["catch"](0);
+            (0, _alerts.showAlert)("error", _context5.t0.response.data.message);
+          case 10:
           case "end":
             return _context5.stop();
         }
       }
-    }, _callee5);
+    }, _callee5, null, [[0, 7]]);
   }));
   return function addBlog(_x5) {
     return _ref5.apply(this, arguments);
@@ -26267,18 +26283,22 @@ window.onscroll = function () {
   (0, _doSomeThing.scrollFunction)();
 };
 (0, _login.getCategories)();
-$("#signup").on("click", /*#__PURE__*/function () {
+$("#add").on("submit", /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-    var username, password;
+    var form;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             e.preventDefault();
-            username = $("#username").val();
-            password = $("#password").val();
-            (0, _login.signup)(username, password);
-          case 4:
+            tinyMCE.triggerSave();
+            form = new FormData();
+            form.append("title", $("#title").val());
+            form.append("category", $("#category").val());
+            form.append("description", $("#description").val());
+            form.append("image", $("#image")[0].files[0]);
+            (0, _login.addBlog)(form);
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -26289,7 +26309,7 @@ $("#signup").on("click", /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }());
-$("#login").on("click", /*#__PURE__*/function () {
+$("#signup").on("click", /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
     var username, password;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -26299,7 +26319,7 @@ $("#login").on("click", /*#__PURE__*/function () {
             e.preventDefault();
             username = $("#username").val();
             password = $("#password").val();
-            (0, _login.login)(username, password);
+            (0, _login.signup)(username, password);
           case 4:
           case "end":
             return _context2.stop();
@@ -26309,6 +26329,28 @@ $("#login").on("click", /*#__PURE__*/function () {
   }));
   return function (_x2) {
     return _ref2.apply(this, arguments);
+  };
+}());
+$("#login").on("click", /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+    var username, password;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            e.preventDefault();
+            username = $("#username").val();
+            password = $("#password").val();
+            (0, _login.login)(username, password);
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return function (_x3) {
+    return _ref3.apply(this, arguments);
   };
 }());
 $("#logout").on("click", _login.logout);

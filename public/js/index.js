@@ -53,6 +53,16 @@ window.onscroll = function () {
   scrollFunction();
 };
 getCategories();
+$("#add").on("submit", async (e) => {
+  e.preventDefault();
+  tinyMCE.triggerSave();
+  const form = new FormData();
+  form.append("title", $("#title").val());
+  form.append("category", $("#category").val());
+  form.append("description",$("#description").val()); 
+  form.append("image", $("#image")[0].files[0]);
+  addBlog(form);
+})
 
 $("#signup").on("click", async (e) => {
   e.preventDefault();
