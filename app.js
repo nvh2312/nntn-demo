@@ -3,11 +3,11 @@ const path = require("path");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
-const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const cookieParser = require("cookie-parser");
 const extend = require("ejs-mate");
 const cors = require('cors');
+
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -38,14 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
 app.use('/js', express.static(__dirname + '/node_modules/tinymce/'));
 // Set security HTTP headers
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-      defaultSrc: ["'self'"],
-      scriptSrcElem: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", '*.vien-nntn.herokuapp.com']
-  }
-}));
 
 // Development logging
 if (process.env.NODE_ENV === "development") {
@@ -60,7 +52,7 @@ const limiter = rateLimit({
 });
 app.use("/api", limiter);
 
-// Body parser, reading data from body into req.body
+// // Body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());

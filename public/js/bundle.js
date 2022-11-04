@@ -26237,6 +26237,7 @@ tinymce.init({
   images_upload_credentials: true,
   /* enable automatic uploads of images represented by blob or data URIs*/
   automatic_uploads: true,
+  file_picker_types: 'file image media',
   file_picker_callback: function file_picker_callback(callback, value, meta) {
     if (meta.filetype == 'image') {
       $('#upload').trigger('click');
@@ -26429,7 +26430,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52745" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56393" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -1,14 +1,7 @@
 import "@babel/polyfill";
 import jQuery from "jquery";
 import "slick-carousel";
-// import tinymce from "tinymce";
 
-// /* Default icons are required. After that, import custom icons if applicable */
-// import "tinymce/icons/default";
-
-// /* Required TinyMCE components */
-// import "tinymce/themes/silver";
-// import "tinymce/models/dom";
 
 import { signup, login, logout, getCategories, addBlog } from "./login";
 import { scrollToTop, changeVideo, scrollFunction } from "./doSomeThing";
@@ -30,12 +23,13 @@ tinymce.init({
   images_upload_credentials: true,
   /* enable automatic uploads of images represented by blob or data URIs*/
   automatic_uploads: true,
+  file_picker_types: 'file image media',
   file_picker_callback: function(callback, value, meta) {
     if (meta.filetype == 'image') {
       $('#upload').trigger('click');
       $('#upload').on('change', function() {
-        var file = this.files[0];
-        var reader = new FileReader();
+        let file = this.files[0];
+        let reader = new FileReader();
         reader.onload = function(e) {
           callback(e.target.result, {
             alt: ''
