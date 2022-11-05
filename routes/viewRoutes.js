@@ -8,7 +8,9 @@ const organizationController = require("../controllers/organizationController");
 
 const router = express.Router();
 
-router.get("/", authController.isLoggedIn, async function (req, res, next) {
+router.use(authController.isLoggedIn);
+
+router.get("/", async function (req, res, next) {
   const blog = await Category.findOne({ slug: "tin-tuc-su-kien" }).populate({
     path: "blogs",
   });
@@ -16,14 +18,12 @@ router.get("/", authController.isLoggedIn, async function (req, res, next) {
 });
 router.get(
   "/blog/add",
-  authController.isLoggedIn,
   async function (req, res, next) {
     res.render("addBlog");
   }
 );
 router.get(
   "/Blogs/:slug",
-  authController.isLoggedIn,
   async function (req, res, next) {
     const blog = await Blog.findOne({ slug: req.params.slug });
     res.render("showBlog", { blog });
@@ -39,11 +39,19 @@ router.get("/login", async function (req, res, next) {
 router.get("/sign-up", async function (req, res, next) {
   res.render("signup");
 });
-router.get("/lecture/add",authController.isLoggedIn, async function (req, res, next) {
-  res.render("addLecture");
-});
-router.get("/:slug",organizationController.getSlugOrganization, async function (req, res, next) {
-  const organization = req.organization;
-  res.render("showAllLecture", { organization });
-});
+router.get(
+  "/lecture/add",
+  authController.isLoggedIn,
+  async function (req, res, next) {
+    res.render("addLecture");
+  }
+);
+router.get(
+  "/:slug",
+  organizationController.getSlugOrganization,
+  async function (req, res, next) {
+    const organization = req.organization;
+    res.render("showAllLecture", { organization });
+  }
+);
 module.exports = router;
