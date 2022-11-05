@@ -25860,7 +25860,7 @@ exports.showAlert = showAlert;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.signup = exports.logout = exports.login = exports.getCategories = exports.addBlog = void 0;
+exports.signup = exports.logout = exports.login = exports.getOrganizations = exports.getCategories = exports.addLecture = exports.addBlog = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alerts = require("./alerts");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -26019,46 +26019,116 @@ var getCategories = /*#__PURE__*/function () {
   };
 }();
 exports.getCategories = getCategories;
-var addBlog = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(data) {
-    var res;
+var getOrganizations = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+    var data, organizations;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            _context5.prev = 0;
-            _context5.next = 3;
+            _context5.next = 2;
+            return (0, _axios.default)({
+              method: "GET",
+              url: "/api/v1/organizations"
+            });
+          case 2:
+            data = _context5.sent;
+            organizations = data.data.data.data;
+            organizations.forEach(function (value) {
+              $("#organization").append("<option value=" + value.id + ">" + value.name + "</option>");
+            });
+          case 5:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+  return function getOrganizations() {
+    return _ref5.apply(this, arguments);
+  };
+}();
+exports.getOrganizations = getOrganizations;
+var addBlog = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(data) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.prev = 0;
+            _context6.next = 3;
             return (0, _axios.default)({
               method: "POST",
               url: "/api/v1/blogs",
               data: data
             });
           case 3:
-            res = _context5.sent;
+            res = _context6.sent;
             if (res.data.status === "success") {
               (0, _alerts.showAlert)("success", "Added Blog successfully!");
               window.setTimeout(function () {
                 location.reload(true);
               }, 1500);
             }
-            _context5.next = 10;
+            _context6.next = 10;
             break;
           case 7:
-            _context5.prev = 7;
-            _context5.t0 = _context5["catch"](0);
-            (0, _alerts.showAlert)("error", _context5.t0.response.data.message);
+            _context6.prev = 7;
+            _context6.t0 = _context6["catch"](0);
+            (0, _alerts.showAlert)("error", _context6.t0.response.data.message);
           case 10:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
       }
-    }, _callee5, null, [[0, 7]]);
+    }, _callee6, null, [[0, 7]]);
   }));
   return function addBlog(_x5) {
-    return _ref5.apply(this, arguments);
+    return _ref6.apply(this, arguments);
   };
 }();
 exports.addBlog = addBlog;
+var addLecture = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(data) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.prev = 0;
+            _context7.next = 3;
+            return (0, _axios.default)({
+              method: "POST",
+              url: "/api/v1/lectures",
+              data: data
+            });
+          case 3:
+            res = _context7.sent;
+            if (res.data.status === "success") {
+              (0, _alerts.showAlert)("success", "Added Lecture successfully!");
+              window.setTimeout(function () {
+                location.reload(true);
+              }, 1500);
+            }
+            _context7.next = 10;
+            break;
+          case 7:
+            _context7.prev = 7;
+            _context7.t0 = _context7["catch"](0);
+            (0, _alerts.showAlert)("error", _context7.t0.response.data.message);
+          case 10:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7, null, [[0, 7]]);
+  }));
+  return function addLecture(_x6) {
+    return _ref7.apply(this, arguments);
+  };
+}();
+exports.addLecture = addLecture;
 },{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"doSomeThing.js":[function(require,module,exports) {
 "use strict";
 
@@ -26283,12 +26353,42 @@ window.onscroll = function () {
   (0, _doSomeThing.scrollFunction)();
 };
 (0, _login.getCategories)();
-$("#add").on("submit", /*#__PURE__*/function () {
+(0, _login.getOrganizations)();
+$("#addLecture").on("submit", /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
     var form;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
+          case 0:
+            e.preventDefault();
+            tinyMCE.triggerSave();
+            form = new FormData();
+            form.append("name", $("#name").val());
+            form.append("organization", $("#organization").val());
+            form.append("position", $("#position").val());
+            form.append("email", $("#email").val());
+            form.append("phone", $("#phone").val());
+            form.append("task", $("#task").val());
+            form.append("image", $("#image")[0].files[0]);
+            (0, _login.addLecture)(form);
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+$("#add").on("submit", /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+    var form;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
           case 0:
             e.preventDefault();
             tinyMCE.triggerSave();
@@ -26300,28 +26400,6 @@ $("#add").on("submit", /*#__PURE__*/function () {
             (0, _login.addBlog)(form);
           case 8:
           case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-}());
-$("#signup").on("click", /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
-    var username, password;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            e.preventDefault();
-            username = $("#username").val();
-            password = $("#password").val();
-            (0, _login.signup)(username, password);
-          case 4:
-          case "end":
             return _context2.stop();
         }
       }
@@ -26331,7 +26409,7 @@ $("#signup").on("click", /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }());
-$("#login").on("click", /*#__PURE__*/function () {
+$("#signup").on("click", /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
     var username, password;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -26341,7 +26419,7 @@ $("#login").on("click", /*#__PURE__*/function () {
             e.preventDefault();
             username = $("#username").val();
             password = $("#password").val();
-            (0, _login.login)(username, password);
+            (0, _login.signup)(username, password);
           case 4:
           case "end":
             return _context3.stop();
@@ -26351,6 +26429,28 @@ $("#login").on("click", /*#__PURE__*/function () {
   }));
   return function (_x3) {
     return _ref3.apply(this, arguments);
+  };
+}());
+$("#login").on("click", /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
+    var username, password;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            e.preventDefault();
+            username = $("#username").val();
+            password = $("#password").val();
+            (0, _login.login)(username, password);
+          case 4:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+  return function (_x4) {
+    return _ref4.apply(this, arguments);
   };
 }());
 $("#logout").on("click", _login.logout);
@@ -26472,7 +26572,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56393" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57603" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

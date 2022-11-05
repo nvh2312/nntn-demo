@@ -3,7 +3,7 @@ import jQuery from "jquery";
 import "slick-carousel";
 
 
-import { signup, login, logout, getCategories, addBlog } from "./login";
+import { signup, login, logout, getCategories, addBlog, getOrganizations, addLecture } from "./login";
 import { scrollToTop, changeVideo, scrollFunction } from "./doSomeThing";
 window.$ = window.jQuery = jQuery;
 
@@ -53,6 +53,23 @@ window.onscroll = function () {
   scrollFunction();
 };
 getCategories();
+getOrganizations();
+
+$("#addLecture").on("submit", async (e) => {
+  e.preventDefault();
+  tinyMCE.triggerSave();
+  const form = new FormData();
+  form.append("name", $("#name").val());
+  form.append("organization", $("#organization").val());
+  form.append("position",$("#position").val()); 
+  form.append("email",$("#email").val()); 
+  form.append("phone",$("#phone").val()); 
+  form.append("task",$("#task").val()); 
+  form.append("image", $("#image")[0].files[0]);
+  addLecture(form);
+})
+
+
 $("#add").on("submit", async (e) => {
   e.preventDefault();
   tinyMCE.triggerSave();

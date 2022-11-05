@@ -24,7 +24,7 @@ const lectureSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    img: {
+    image: {
       type: String,
       default: "placeholder.jpg",
     },

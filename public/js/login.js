@@ -68,6 +68,19 @@ export const getCategories = async () => {
     );
   });
 };
+
+export const getOrganizations = async () => {
+  const data = await axios({
+    method: "GET",
+    url: "/api/v1/organizations",
+  });
+  const organizations = data.data.data.data;
+  organizations.forEach((value) => {
+    $("#organization").append(
+      "<option value=" + value.id + ">" + value.name + "</option>"
+    );
+  });
+};
 export const addBlog = async (data) => {
   try {
     const res = await axios({
@@ -77,6 +90,23 @@ export const addBlog = async (data) => {
     });
     if (res.data.status === "success") {
       showAlert("success", "Added Blog successfully!");
+      window.setTimeout(() => {
+        location.reload(true);
+      }, 1500);
+    }
+  } catch (err) {
+    showAlert("error", err.response.data.message);
+  }
+};
+export const addLecture = async (data) => {
+  try {
+    const res = await axios({
+      method: "POST",
+      url: "/api/v1/lectures",
+      data,
+    });
+    if (res.data.status === "success") {
+      showAlert("success", "Added Lecture successfully!");
       window.setTimeout(() => {
         location.reload(true);
       }, 1500);

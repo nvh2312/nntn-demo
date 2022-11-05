@@ -1,0 +1,53 @@
+<% layout('base') -%>
+<div class="all-content py-2">
+    <div class="margin-x">
+        <div class="py-2 bg-light">
+            <h1 class="mb-2 text-dark text-center">New blog post</h1>
+
+            <form id="addLecture" enctype="multipart/form-data">
+                <div class="form-group my-3">
+
+                    <label for="title" class="px-2 text-dark">Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Name" name="name" required>
+                </div>
+                <div class="form-group my-3">
+
+                    <label for="category-blog" class="px-2 text-dark">Organization</label>
+                    <select class="form-control" id="organization" name="organization" required>
+                        <option selected disabled hidden></option>
+                    </select>
+                </div>
+                <div class="form-group my-3">
+
+                    <label for="title" class="px-2 text-dark">Position</label>
+                    <input type="text" id="position" class="form-control" placeholder="position" name="position" required>
+                </div>
+                <div class="form-group my-3">
+
+                    <label for="title" class="px-2 text-dark">Email</label>
+                    <input type="text" id="email" class="form-control" placeholder="email" name="email" required>
+                </div>
+                <div class="form-group my-3">
+
+                    <label for="title" class="px-2 text-dark">Phone</label>
+                    <input type="text" id="phone" class="form-control" placeholder="phone" name="phone" required>
+                </div>
+                <div class="form-group my-3">
+
+                    <label for="title" class="px-2 text-dark">Task</label>
+                    <input type="text" id="task" class="form-control" placeholder="task" name="task" required>
+                </div>
+                
+                <div class="my-2 form-group">
+                    <label for="image" class="px-2 text-dark">Upload image</label>
+                    <input type="file" name="image" id="image" class="form-control-file text-dark">
+                </div>
+
+                <div class="form-group my-3">
+                    <a href="/" class="btn btn-warning">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

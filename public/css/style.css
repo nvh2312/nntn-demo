@@ -683,3 +683,10 @@ hr {
 .alert--error {
   background-color: #eb4d4b!important;
 }
+.all-lecture {
+  border-bottom: 1px solid rgb(185, 183, 183);
+}
+.all-lecture .col-9 p{
+  margin-bottom: 3px;
+  font-size: 13px;
+}

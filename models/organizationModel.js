@@ -8,8 +8,8 @@ const organizationSchema = new mongoose.Schema(
       unique: true,
       trim: true,
       maxlength: [
-        40,
-        "A organizational structure name must have less or equal then 40 characters",
+        100,
+        "A organizational structure name must have less or equal then 100 characters",
       ],
       minlength: [
         2,
@@ -24,12 +24,18 @@ const organizationSchema = new mongoose.Schema(
   }
 );
 
+organizationSchema.virtual('lectures', {
+  ref: 'Lecture',
+  foreignField: 'organization',
+  localField: '_id'
+});
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 organizationSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
+
 const Organization = mongoose.model("Organization", organizationSchema);
 
 module.exports = Organization;
